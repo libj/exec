@@ -1,0 +1,21 @@
+#!/bin/bash
+#
+
+rm out
+touch out
+
+COUNTER=0
+while :
+do
+#  echo -n .
+  echo -n . 1>&2
+  echo -n . >> out
+#  sleep .0001
+  let COUNTER=COUNTER+1 
+  if [  $COUNTER -gt 50 ]; then
+    let COUNTER=0
+#    echo ""
+    echo "" 1>&2
+    echo "" >> out
+  fi
+done
