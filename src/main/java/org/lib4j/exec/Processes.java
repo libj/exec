@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.safris.commons.exec;
+package org.lib4j.exec;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.safris.commons.io.Streams;
+import org.lib4j.io.Streams;
 import org.safris.commons.lang.Arrays;
 import org.safris.commons.lang.ClassLoaders;
 import org.slf4j.Logger;
