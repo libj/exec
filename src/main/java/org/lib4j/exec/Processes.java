@@ -27,8 +27,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import org.lib4j.io.Streams;
-import org.safris.commons.lang.Arrays;
-import org.safris.commons.lang.ClassLoaders;
+import org.lib4j.lang.Arrays;
+import org.lib4j.lang.ClassLoaders;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
