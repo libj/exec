@@ -55,6 +55,15 @@ public final class Processes {
     }
   };
 
+  private static Map<String,String> combineProperties(final Map<String,String> props) {
+    if (props == null)
+      return getSystemProperties();
+
+    final Map<String,String> all = getSystemProperties();
+    all.putAll(props);
+    return all;
+  }
+
   private static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, String ... args) throws IOException {
     args = Arrays.filter(notNullPredicate, args);
     logger.debug(Arrays.toString(args, " "));
@@ -89,12 +98,12 @@ public final class Processes {
   }
 
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, getSystemProperties(), clazz, args));
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, combineProperties(props), clazz, args));
     return process;
   }
 
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, getSystemProperties(), clazz, args));
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, combineProperties(props), clazz, args));
     return process;
   }
 
@@ -107,13 +116,13 @@ public final class Processes {
   }
 
   public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, getSystemProperties(), clazz, args));
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, combineProperties(props), clazz, args));
     process.waitFor();
     return process;
   }
 
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, getSystemProperties(), clazz, args));
+  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, combineProperties(props), clazz, args));
     process.waitFor();
     return process;
   }
