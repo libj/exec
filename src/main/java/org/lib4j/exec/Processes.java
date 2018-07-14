@@ -48,7 +48,7 @@ public final class Processes {
     }
   }
 
-  private static final Predicate<String> notNullPredicate = new Predicate<String>() {
+  private static final Predicate<String> notNullPredicate = new Predicate<>() {
     @Override
     public boolean test(final String value) {
       return value != null;
@@ -164,9 +164,9 @@ public final class Processes {
   @SuppressWarnings("rawtypes")
   private static Map<String,String> getSystemProperties() {
     if (System.getProperties().size() == 0)
-      return new HashMap<String,String>(0);
+      return new HashMap<>(0);
 
-    final Map<String,String> properties = new HashMap<String,String>(7);
+    final Map<String,String> properties = new HashMap<>(7);
     for (final Map.Entry property : System.getProperties().entrySet()) {
       final String key = (String)property.getKey();
       final String value = (String)property.getValue();
