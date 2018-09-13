@@ -17,7 +17,7 @@
 package org.fastjax.exec;
 
 import org.fastjax.exec.Processes;
-import org.lib4j.io.Streams;
+import org.fastjax.io.Streams;
 
 public class ProcessesTest {
   public static void main(final String[] args) throws Exception {
