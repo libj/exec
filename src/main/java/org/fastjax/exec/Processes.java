@@ -48,7 +48,7 @@ public final class Processes {
     }
   }
 
-  private static final Predicate<String> notNullPredicate = new Predicate<>() {
+  private static final Predicate<String> notNullPredicate = new Predicate<String>() {
     @Override
     public boolean test(final String value) {
       return value != null;
