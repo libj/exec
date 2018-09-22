@@ -137,7 +137,7 @@ public final class Processes {
 
   private static String[] createJavaCommand(final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) {
     final URL[] classpathURLs = ClassLoaders.getClassPath();
-    final StringBuffer classpath = new StringBuffer();
+    final StringBuilder classpath = new StringBuilder();
     if (classpathURLs != null && classpathURLs.length != 0)
       for (final URL url : classpathURLs)
         classpath.append(File.pathSeparatorChar).append(url.getPath());
