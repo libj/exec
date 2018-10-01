@@ -16,12 +16,58 @@
 
 package org.fastjax.exec;
 
-import org.fastjax.exec.Processes;
-import org.fastjax.io.Streams;
+import static org.junit.Assert.*;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
+
+import org.fastjax.lang.OperatingSystem;
+import org.junit.Test;
 
 public class ProcessesTest {
-  public static void main(final String[] args) throws Exception {
-    final Process process = Processes.forkAsync(null, System.out, null, true, "src/test/resources/test");
-    Streams.pipeAsync(process.getInputStream(), null);
+  public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {
+    if (!OperatingSystem.get().isWindows()) {
+      final int exitValue = (int)(Math.random() * 10);
+      final ByteArrayOutputStream stdout = new ByteArrayOutputStream();
+      final ByteArrayOutputStream stderr = new ByteArrayOutputStream();
+      final long start = System.currentTimeMillis();
+      final Process process = Processes.fork(null, new PrintStream(stdout), new PrintStream(stderr), redirectErrorStream, sync, "sh", "-c", "sleep 1 && echo stdout && >&2 echo stderr && exit " + exitValue);
+      if (sync)
+        process.waitFor();
+      else
+        Thread.sleep(1300);
+
+      assertEquals(exitValue, process.exitValue());
+      final long duration = System.currentTimeMillis() - start;
+      assertTrue("Should be ~1000ms, but was: " + duration, 999 < duration && duration < 2000);
+      assertEquals(redirectErrorStream ? "stdout\nstderr\n" : "stdout\n", new String(stdout.toByteArray()));
+      assertEquals(redirectErrorStream ? "" : "stderr\n", new String(stderr.toByteArray()));
+    }
+  }
+
+  @Test
+  public void testGetPID() {
+    assertTrue(Processes.getPID() != -1);
+  }
+
+  @Test
+  public void testSync() throws InterruptedException, IOException {
+    test(true, false);
+  }
+
+  @Test
+  public void testSyncRedirectError() throws InterruptedException, IOException {
+    test(true, true);
+  }
+
+  @Test
+  public void testAsync() throws InterruptedException, IOException {
+    test(false, false);
+  }
+
+  @Test
+  public void testAsyncRedirectError() throws InterruptedException, IOException {
+    test(false, true);
   }
 }

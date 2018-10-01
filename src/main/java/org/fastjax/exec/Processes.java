@@ -28,13 +28,19 @@ import java.util.function.Predicate;
 
 import org.fastjax.io.Streams;
 import org.fastjax.util.Arrays;
-import org.fastjax.util.ClassLoaders;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
+/**
+ * Utility class that provides convenience methods to launch child processes. The
+ * implementations of the methods in this class guarantee proper management of
+ * the stdin, stdout and stderr streams (for sub-processes that are launched
+ * both synchronously and asynchronously).
+ */
 public final class Processes {
-  private static final Logger logger = LoggerFactory.getLogger(Processes.class);
-
+  /**
+   * Returns the PID of the current running process.
+   *
+   * @return The PID of the current running process.
+   */
   public static int getPID() {
     final String pidAtHost = ManagementFactory.getRuntimeMXBean().getName();
     if (pidAtHost == null)
@@ -55,6 +61,22 @@ public final class Processes {
     }
   };
 
+  @SuppressWarnings("rawtypes")
+  private static Map<String,String> getSystemProperties() {
+    if (System.getProperties().size() == 0)
+      return new HashMap<>(0);
+
+    final Map<String,String> properties = new HashMap<>(7);
+    for (final Map.Entry property : System.getProperties().entrySet()) {
+      final String key = (String)property.getKey();
+      final String value = ((String)property.getValue()).trim();
+      if (value.length() != 0 && value.indexOf(' ') == -1 && key.indexOf(' ') == -1)
+        properties.put(key, value);
+    }
+
+    return properties;
+  }
+
   private static Map<String,String> combineProperties(final Map<String,String> props) {
     if (props == null)
       return getSystemProperties();
@@ -64,9 +86,21 @@ public final class Processes {
     return all;
   }
 
-  private static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, String ... args) throws IOException {
+  /**
+   * Fork a process.
+   *
+   * @param stdin The stdin {@code InputStream}.
+   * @param stdout The stdout {@code OutputStream}.
+   * @param stderr The stderr {@code OutputStream}.
+   * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param sync Whether the current process will be blocked until the forked
+   *          process is finish.
+   * @param args Process command arguments.
+   * @return The forked process handler.
+   * @throws IOException If an I/O error occurs.
+   */
+  static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, String ... args) throws IOException {
     args = Arrays.filter(notNullPredicate, args);
-    logger.debug(Arrays.toString(args, " "));
     final Process process = Runtime.getRuntime().exec(args);
     final OutputStream teeStdin = stdin != null ? Streams.teeAsync(process.getOutputStream(), stdin, stdout) : process.getOutputStream();
 
@@ -87,60 +121,94 @@ public final class Processes {
     return new PipedProcess(process, teeStdin, teeStdout, teeStderr);
   }
 
+  /**
+   * Fork a non-blocking process.
+   *
+   * @param stdin The stdin {@code InputStream}.
+   * @param stdout The stdout {@code OutputStream}.
+   * @param stderr The stderr {@code OutputStream}.
+   * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param args Process command arguments.
+   * @return The forked process handler.
+   * @throws IOException If an I/O error occurs.
+   */
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String ... args) throws IOException {
     return fork(stdin, stdout, stderr, redirectErrorStream, false, args);
   }
 
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String ... args) throws IOException, InterruptedException {
+  /**
+   * Fork a non-blocking Java process.
+   *
+   * @param stdin The stdin {@code InputStream}.
+   * @param stdout The stdout {@code OutputStream}.
+   * @param stderr The stderr {@code OutputStream}.
+   * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param classpath Classpath URLs.
+   * @param vmArgs JavaVM arguments for the forked Java process.
+   * @param props Map of name=value properties for the forked Java process.
+   * @param mainClass The class with the {@code main(String[])} method to launch.
+   * @param args Process command arguments.
+   * @return The forked process handler.
+   * @throws IOException If an I/O error occurs.
+   */
+  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
+    return forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
+  }
+
+  /**
+   * Fork a blocking process.
+   *
+   * @param stdin The stdin {@code InputStream}.
+   * @param stdout The stdout {@code OutputStream}.
+   * @param stderr The stderr {@code OutputStream}.
+   * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param args Process command arguments.
+   * @return The exit value of the process represented by this Process object.
+   *         By convention, the value 0 indicates normal termination.
+   * @throws IOException If an I/O error occurs.
+   * @throws InterruptedException If the current thread is interrupted by
+   *           another thread while it is waiting, then the wait is ended and an
+   *           {@link InterruptedException} is thrown.
+   */
+  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String ... args) throws InterruptedException, IOException {
     final Process process = fork(stdin, stdout, stderr, redirectErrorStream, true, args);
-    process.waitFor();
-    return process;
+    return process.waitFor();
   }
 
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, combineProperties(props), clazz, args));
-    return process;
+  /**
+   * Fork a blocking Java process.
+   *
+   * @param stdin The stdin {@code InputStream}.
+   * @param stdout The stdout {@code OutputStream}.
+   * @param stderr The stderr {@code OutputStream}.
+   * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param classpath Classpath URLs.
+   * @param vmArgs JavaVM arguments for the forked Java process.
+   * @param props Map of name=value properties for the forked Java process.
+   * @param mainClass The class with the {@code main(String[])} method to launch.
+   * @param args Process command arguments.
+   * @return The exit value of the process represented by this Process object.
+   *         By convention, the value 0 indicates normal termination.
+   * @throws IOException If an I/O error occurs.
+   * @throws InterruptedException If the current thread is interrupted by
+   *           another thread while it is waiting, then the wait is ended and an
+   *           {@link InterruptedException} is thrown.
+   */
+  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
+    return process.waitFor();
   }
 
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, combineProperties(props), clazz, args));
-    return process;
-  }
+  private static String[] createJavaCommand(final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
+    final StringBuilder cp = new StringBuilder();
+    if (classpath != null && classpath.length != 0) {
+      for (int i = 0; i < classpath.length; ++i) {
+        if (i > 0)
+          cp.append(File.pathSeparatorChar);
 
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Class<?> clazz, final String ... args) throws IOException {
-    return forkAsync(stdin, stdout, stderr, redirectErrorStream, vmArgs, getSystemProperties(), clazz, args);
-  }
-
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Class<?> clazz, final String ... args) throws IOException {
-    return forkAsync(stdin, stdout, stderr, redirectErrorStream, null, getSystemProperties(), clazz, args);
-  }
-
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(vmArgs, combineProperties(props), clazz, args));
-    process.waitFor();
-    return process;
-  }
-
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, Map<String,String> props, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(null, combineProperties(props), clazz, args));
-    process.waitFor();
-    return process;
-  }
-
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String[] vmArgs, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    return forkSync(stdin, stdout, stderr, redirectErrorStream, vmArgs, getSystemProperties(), clazz, args);
-  }
-
-  public static Process forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Class<?> clazz, final String ... args) throws IOException, InterruptedException {
-    return forkSync(stdin, stdout, stderr, redirectErrorStream, getSystemProperties(), clazz, args);
-  }
-
-  private static String[] createJavaCommand(final String[] vmArgs, final Map<String,String> props, final Class<?> clazz, final String ... args) {
-    final URL[] classpathURLs = ClassLoaders.getClassPath();
-    final StringBuilder classpath = new StringBuilder();
-    if (classpathURLs != null && classpathURLs.length != 0)
-      for (final URL url : classpathURLs)
-        classpath.append(File.pathSeparatorChar).append(url.getPath());
+        cp.append(classpath[i].getPath());
+      }
+    }
 
     final String[] options = new String[(args != null ? args.length : 0) + (vmArgs != null ? vmArgs.length : 0) + (props != null ? props.size() : 0) + 4];
     int i = -1;
@@ -154,27 +222,11 @@ public final class Processes {
         options[++i] = "-D" + property.getKey() + "=" + property.getValue();
 
     options[++i] = "-cp";
-    options[++i] = classpath.length() != 0 ? classpath.substring(1) : "";
-    options[++i] = clazz.getName();
+    options[++i] = cp.toString();
+    options[++i] = mainClass.getName();
     System.arraycopy(args, 0, options, ++i, args.length);
 
     return options;
-  }
-
-  @SuppressWarnings("rawtypes")
-  private static Map<String,String> getSystemProperties() {
-    if (System.getProperties().size() == 0)
-      return new HashMap<>(0);
-
-    final Map<String,String> properties = new HashMap<>(7);
-    for (final Map.Entry property : System.getProperties().entrySet()) {
-      final String key = (String)property.getKey();
-      final String value = (String)property.getValue();
-      if (value.trim().length() != 0 && !value.contains(" ") && !key.contains(" "))
-        properties.put(key, value.trim());
-    }
-
-    return properties;
   }
 
   private static final class PipedProcess extends Process {
@@ -183,7 +235,7 @@ public final class Processes {
     private final InputStream stdout;
     private final InputStream stderr;
 
-    public PipedProcess(final Process process, final OutputStream stdin, InputStream stdout, final InputStream stderr) {
+    public PipedProcess(final Process process, final OutputStream stdin, final InputStream stdout, final InputStream stderr) {
       this.process = process;
       this.stdin = stdin;
       this.stdout = stdout;

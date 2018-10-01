@@ -28,7 +28,7 @@
   <version>0.8.9-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
   <description>
-    API for external process execution and environment management in Java.
+    API for external process execution and standard stream management.
   </description>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
