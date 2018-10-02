@@ -23,6 +23,7 @@ import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Predicate;
 
@@ -95,13 +96,37 @@ public final class Processes {
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param sync Whether the current process will be blocked until the forked
    *          process is finish.
+   * @param envp Map of name value pairs specifying environment properties for
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
+   *          subprocess should inherit the working directory of the current
+   *          process.
    * @param args Process command arguments.
    * @return The forked process handler.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
+   *           length 0).
    * @throws IOException If an I/O error occurs.
+   * @throws NullPointerException If {@code args} is null.
+   * @throws UnsupportedOperationException If the operating system does not
+   *           support the creation of processes.
    */
-  static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, String ... args) throws IOException {
+  static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
     args = Arrays.filter(notNullPredicate, args);
-    final Process process = Runtime.getRuntime().exec(args);
+    final String[] env;
+    if (envp != null && envp.size() > 0) {
+      env = new String[envp.size()];
+      final Iterator<Map.Entry<String,String>> iterator = envp.entrySet().iterator();
+      for (int i = 0; iterator.hasNext(); ++i) {
+        final Map.Entry<String,String> entry = iterator.next();
+        env[i] = entry.getKey() + "=" + entry.getValue();
+      }
+    }
+    else {
+      env = null;
+    }
+
+    final Process process = Runtime.getRuntime().exec(args, env, dir);
     final OutputStream teeStdin = stdin != null ? Streams.teeAsync(process.getOutputStream(), stdin, stdout) : process.getOutputStream();
 
     InputStream teeStdout = redirectErrorStream ? Streams.merge(process.getInputStream(), process.getErrorStream()) : process.getInputStream();
@@ -128,12 +153,23 @@ public final class Processes {
    * @param stdout The stdout {@code OutputStream}.
    * @param stderr The stderr {@code OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param envp Map of name value pairs specifying environment properties for
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
+   *          subprocess should inherit the working directory of the current
+   *          process.
    * @param args Process command arguments.
    * @return The forked process handler.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
+   *           length 0).
    * @throws IOException If an I/O error occurs.
+   * @throws NullPointerException If {@code args} is null.
+   * @throws UnsupportedOperationException If the operating system does not
+   *           support the creation of processes.
    */
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String ... args) throws IOException {
-    return fork(stdin, stdout, stderr, redirectErrorStream, false, args);
+  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws IOException {
+    return fork(stdin, stdout, stderr, redirectErrorStream, false, envp, dir, args);
   }
 
   /**
@@ -143,16 +179,27 @@ public final class Processes {
    * @param stdout The stdout {@code OutputStream}.
    * @param stderr The stderr {@code OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param envp Map of name value pairs specifying environment properties for
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
+   *          subprocess should inherit the working directory of the current
+   *          process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
    * @param mainClass The class with the {@code main(String[])} method to launch.
    * @param args Process command arguments.
    * @return The forked process handler.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
+   *           length 0).
    * @throws IOException If an I/O error occurs.
+   * @throws NullPointerException If {@code args} is null.
+   * @throws UnsupportedOperationException If the operating system does not
+   *           support the creation of processes.
    */
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
-    return forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
+  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
+    return forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
   }
 
   /**
@@ -162,16 +209,27 @@ public final class Processes {
    * @param stdout The stdout {@code OutputStream}.
    * @param stderr The stderr {@code OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param envp Map of name value pairs specifying environment properties for
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
+   *          subprocess should inherit the working directory of the current
+   *          process.
    * @param args Process command arguments.
    * @return The exit value of the process represented by this Process object.
    *         By convention, the value 0 indicates normal termination.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
+   *           length 0).
    * @throws IOException If an I/O error occurs.
+   * @throws NullPointerException If {@code args} is null.
+   * @throws UnsupportedOperationException If the operating system does not
+   *           support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by
    *           another thread while it is waiting, then the wait is ended and an
    *           {@link InterruptedException} is thrown.
    */
-  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final String ... args) throws InterruptedException, IOException {
-    final Process process = fork(stdin, stdout, stderr, redirectErrorStream, true, args);
+  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws InterruptedException, IOException {
+    final Process process = fork(stdin, stdout, stderr, redirectErrorStream, true, envp, dir, args);
     return process.waitFor();
   }
 
@@ -182,6 +240,12 @@ public final class Processes {
    * @param stdout The stdout {@code OutputStream}.
    * @param stderr The stderr {@code OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
+   * @param envp Map of name value pairs specifying environment properties for
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
+   *          subprocess should inherit the working directory of the current
+   *          process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
@@ -189,13 +253,18 @@ public final class Processes {
    * @param args Process command arguments.
    * @return The exit value of the process represented by this Process object.
    *         By convention, the value 0 indicates normal termination.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
+   *           length 0).
    * @throws IOException If an I/O error occurs.
+   * @throws NullPointerException If {@code args} is null.
+   * @throws UnsupportedOperationException If the operating system does not
+   *           support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by
    *           another thread while it is waiting, then the wait is ended and an
    *           {@link InterruptedException} is thrown.
    */
-  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
+  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
+    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
     return process.waitFor();
   }
 
