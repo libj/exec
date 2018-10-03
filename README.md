@@ -25,10 +25,10 @@ Subprocesses launched synchronously will block the executing thread until comple
   The following example launches a general subprocess, directing the std streams to the appropriate PrintWriter.
 
   ```java
-    int exitValue = Processes.forkSync(System.in, System.out, System.err, // "stdin", "stdout", "stderr"
-                                       false, null, null,                 // "redirectErrorStream", "envp", "dir"
-                                       "sh", "-c", "sleep 5 && echo Foo && >&2 echo Bar && exit 1");
-    assertEquals(1, exitValue);
+  int exitValue = Processes.forkSync(System.in, System.out, System.err, // "stdin", "stdout", "stderr"
+                                     false, null, null,                 // "redirectErrorStream", "envp", "dir"
+                                     "sh", "-c", "sleep 5 && echo Foo && >&2 echo Bar && exit 1");
+  assertEquals(1, exitValue);
   ```
 
 * **Java subprocess**
@@ -36,11 +36,11 @@ Subprocesses launched synchronously will block the executing thread until comple
   The following example launches a general subprocess, directing the std streams to the appropriate PrintWriter.
 
   ```java
-    int exitValue = Processes.forkSync(System.in, System.out, System.err,        // "stdin", "stdout", "stderr"
-                                       false, null, null,                        // "redirectErrorStream", "envp", "dir"
-                                       ClassLoaders.getClassPath(), null, props, // "classpath", "vmArgs", "props"
-                                       MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
-    assertEquals(1, exitValue);
+  int exitValue = Processes.forkSync(System.in, System.out, System.err,        // "stdin", "stdout", "stderr"
+                                     false, null, null,                        // "redirectErrorStream", "envp", "dir"
+                                     ClassLoaders.getClassPath(), null, props, // "classpath", "vmArgs", "props"
+                                     MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
+  assertEquals(1, exitValue);
   ```
 
 ### Asynchronous Subprocess
@@ -53,9 +53,9 @@ Subprocesses launched asynchronously will not block the executing thread.
   The following example launches a general subprocess, directing the std streams to the appropriate PrintWriter.
 
   ```java
-    Process process = Processes.forkAsync(System.in, System.out, System.err, // "stdin", "stdout", "stderr"
-                                          false, null, null,                 // "redirectErrorStream", "envp", "dir"
-                                          "sh", "-c", "sleep 5 && echo Foo && >&2 echo Bar && exit 1");
+  Process process = Processes.forkAsync(System.in, System.out, System.err, // "stdin", "stdout", "stderr"
+                                        false, null, null,                 // "redirectErrorStream", "envp", "dir"
+                                        "sh", "-c", "sleep 5 && echo Foo && >&2 echo Bar && exit 1");
   ```
 
 * **Java subprocess**
@@ -63,10 +63,10 @@ Subprocesses launched asynchronously will not block the executing thread.
   The following example launches a general subprocess, directing the std streams to the appropriate PrintWriter.
 
   ```java
-    Process process = Processes.forkAsync(System.in, System.out, System.err,        // "stdin", "stdout", "stderr"
-                                          false, null, null,                        // "redirectErrorStream", "envp", "dir"
-                                          ClassLoaders.getClassPath(), null, props, // "classpath", "vmArgs", "props"
-                                          MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
+  Process process = Processes.forkAsync(System.in, System.out, System.err,        // "stdin", "stdout", "stderr"
+                                        false, null, null,                        // "redirectErrorStream", "envp", "dir"
+                                        ClassLoaders.getClassPath(), null, props, // "classpath", "vmArgs", "props"
+                                        MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
   ```
 
 ## Contributing
