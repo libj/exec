@@ -37,6 +37,8 @@ import org.fastjax.util.Arrays;
  * both synchronously and asynchronously).
  */
 public final class Processes {
+  private static final String JAVA = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+
   /**
    * Returns the PID of the current running process.
    *
@@ -281,7 +283,7 @@ public final class Processes {
 
     final String[] options = new String[(args != null ? args.length : 0) + (vmArgs != null ? vmArgs.length : 0) + (props != null ? props.size() : 0) + 4];
     int i = -1;
-    options[++i] = "java";
+    options[++i] = JAVA;
     if (vmArgs != null && vmArgs.length != 0)
       for (final String vmArg : vmArgs)
         options[++i] = vmArg;
