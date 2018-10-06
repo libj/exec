@@ -28,6 +28,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 import org.fastjax.io.Streams;
+import org.fastjax.io.TeeOutputStream;
 import org.fastjax.util.Arrays;
 
 /**
@@ -113,6 +114,7 @@ public final class Processes {
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    */
+  @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
     args = Arrays.filter(notNullPredicate, args);
     final String[] env;
@@ -129,9 +131,16 @@ public final class Processes {
     }
 
     final Process process = Runtime.getRuntime().exec(args, env, dir);
-    final OutputStream teeStdin = stdin != null ? Streams.teeAsync(process.getOutputStream(), stdin, stdout) : process.getOutputStream();
+    final OutputStream teeStdin;
+    if (stdin != null) {
+      Streams.pipeAsync(stdin, process.getOutputStream());
+      teeStdin = new TeeOutputStream(process.getOutputStream(), stdout);
+    }
+    else {
+      teeStdin = process.getOutputStream();
+    }
 
-    InputStream teeStdout = redirectErrorStream ? Streams.merge(process.getInputStream(), process.getErrorStream()) : process.getInputStream();
+    InputStream teeStdout = redirectErrorStream ? Streams.mergeAsync(process.getInputStream(), process.getErrorStream()) : process.getInputStream();
     if (sync)
       Streams.pipeAsync(teeStdout, stdout);
     else if (stdout != null)
