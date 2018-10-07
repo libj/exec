@@ -29,7 +29,7 @@ import java.util.function.Predicate;
 
 import org.fastjax.io.Streams;
 import org.fastjax.io.TeeOutputStream;
-import org.fastjax.util.Arrays;
+import org.fastjax.util.FastArrays;
 
 /**
  * Utility class that provides convenience methods to launch child processes. The
@@ -116,7 +116,7 @@ public final class Processes {
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
-    args = Arrays.filter(notNullPredicate, args);
+    args = FastArrays.filter(notNullPredicate, args);
     final String[] env;
     if (envp != null && envp.size() > 0) {
       env = new String[envp.size()];
