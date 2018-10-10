@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -209,7 +208,7 @@ public final class Processes {
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    */
-  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
+  public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
     return forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
   }
 
@@ -274,12 +273,12 @@ public final class Processes {
    *           another thread while it is waiting, then the wait is ended and an
    *           {@link InterruptedException} is thrown.
    */
-  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
+  public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
     final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
     return process.waitFor();
   }
 
-  private static String[] createJavaCommand(final URL[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
+  private static String[] createJavaCommand(final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
     final StringBuilder cp = new StringBuilder();
     if (classpath != null && classpath.length != 0) {
       for (int i = 0; i < classpath.length; ++i) {
