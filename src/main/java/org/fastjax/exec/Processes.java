@@ -108,7 +108,7 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
-   * @throws IOException If an I/O error occurs.
+   * @throws IOException If an I/O error has occurred.
    * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
@@ -173,7 +173,7 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
-   * @throws IOException If an I/O error occurs.
+   * @throws IOException If an I/O error has occurred.
    * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
@@ -204,7 +204,7 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
-   * @throws IOException If an I/O error occurs.
+   * @throws IOException If an I/O error has occurred.
    * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
@@ -231,7 +231,7 @@ public final class Processes {
    *         By convention, the value 0 indicates normal termination.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
-   * @throws IOException If an I/O error occurs.
+   * @throws IOException If an I/O error has occurred.
    * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
@@ -267,7 +267,7 @@ public final class Processes {
    *         By convention, the value 0 indicates normal termination.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
-   * @throws IOException If an I/O error occurs.
+   * @throws IOException If an I/O error has occurred.
    * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
