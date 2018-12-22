@@ -69,6 +69,10 @@ Subprocesses launched asynchronously will not block the executing thread.
                                         MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
   ```
 
+### JavaDocs
+
+JavaDocs are available [here](https://www.fastjax.org/javadocs/org/fastjax/exec/package-summary.html).
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
