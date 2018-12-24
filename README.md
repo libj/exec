@@ -1,4 +1,4 @@
-# Exec
+# FastJAX Exec
 
 **API for external process execution and stream management**
 
