@@ -71,7 +71,7 @@ Subprocesses launched asynchronously will not block the executing thread.
 
 ### JavaDocs
 
-JavaDocs are available [here](https://www.fastjax.org/javadocs/org/fastjax/exec/package-summary.html).
+JavaDocs are available [here](https://exec.fastjax.org/javadocs/).
 
 ## Contributing
 
