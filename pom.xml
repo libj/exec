@@ -27,6 +27,7 @@
   <artifactId>exec</artifactId>
   <version>0.8.9-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
+  <url>https://exec.fastjax.org/</url>
   <description>
     API for external process execution and standard stream management.
   </description>
