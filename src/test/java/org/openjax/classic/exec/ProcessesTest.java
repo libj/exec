@@ -1,4 +1,4 @@
-/* Copyright (c) 2016 FastJAX
+/* Copyright (c) 2016 OpenJAX
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.fastjax.exec;
+package org.openjax.classic.exec;
 
 import static org.junit.Assert.*;
 
@@ -22,8 +22,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 
-import org.fastjax.lang.OperatingSystem;
 import org.junit.Test;
+import org.openjax.classic.lang.OperatingSystem;
 
 public class ProcessesTest {
   public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {

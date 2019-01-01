@@ -20,21 +20,20 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
-    <groupId>org.fastjax</groupId>
-    <artifactId>fastjax</artifactId>
+    <groupId>org.openjax.classic</groupId>
+    <artifactId>classic</artifactId>
     <version>1.11.15-SNAPSHOT</version>
   </parent>
-  <artifactId>exec</artifactId>
+  <artifactId>classic-exec</artifactId>
   <version>0.8.9-SNAPSHOT</version>
   <name>${project.groupId}:${project.artifactId}</name>
-  <url>https://exec.fastjax.org/</url>
   <description>
     API for external process execution and standard stream management.
   </description>
   <dependencies>
     <dependency>
-      <groupId>org.fastjax</groupId>
-      <artifactId>io</artifactId>
+      <groupId>org.openjax.classic</groupId>
+      <artifactId>classic-io</artifactId>
       <version>0.7.5-SNAPSHOT</version>
     </dependency>
   </dependencies>
