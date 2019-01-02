@@ -32,7 +32,7 @@ public class ProcessesTest {
       final ByteArrayOutputStream stdout = new ByteArrayOutputStream();
       final ByteArrayOutputStream stderr = new ByteArrayOutputStream();
       final long start = System.currentTimeMillis();
-      final Process process = Processes.fork(null, new PrintStream(stdout), new PrintStream(stderr), redirectErrorStream, sync, null, null, "sh", "-c", "sleep 1 && echo stdout && >&2 echo stderr && exit " + exitValue);
+      final Process process = Processes.fork(null, new PrintStream(stdout), new PrintStream(stderr), redirectErrorStream, sync, null, null, "sh", "-c", "sleep .8 && echo stdout && sleep .1 && >&2 echo stderr && sleep .1 && exit " + exitValue);
       if (sync)
         process.waitFor();
       else
