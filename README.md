@@ -1,4 +1,4 @@
-# OpenJAX Classic Exec
+# OpenJAX Standard Exec
 
 **API for external process execution and stream management**
 
@@ -71,7 +71,7 @@ Subprocesses launched asynchronously will not block the executing thread.
 
 ### JavaDocs
 
-JavaDocs are available [here](https://classic.openjax.org/exec/apidocs/).
+JavaDocs are available [here](https://standard.openjax.org/exec/apidocs/).
 
 ## Contributing
 

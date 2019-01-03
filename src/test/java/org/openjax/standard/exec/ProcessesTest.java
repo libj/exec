@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.classic.exec;
+package org.openjax.standard.exec;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,8 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import org.junit.Test;
-import org.openjax.classic.lang.OperatingSystem;
+import org.openjax.standard.lang.OperatingSystem;
+import org.openjax.standard.exec.Processes;
 
 public class ProcessesTest {
   public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {
