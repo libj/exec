@@ -1,6 +1,8 @@
 # OpenJAX Standard Exec
 
-**API for external process execution and stream management**
+> API for external process execution and stream management
+
+[![Build Status](https://travis-ci.org/openjax/standard-exec.png)](https://travis-ci.org/openjax/standard-exec)
 
 ## Introduction
 
