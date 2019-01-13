@@ -3,6 +3,7 @@
 > API for external process execution and stream management
 
 [![Build Status](https://travis-ci.org/openjax/standard-exec.png)](https://travis-ci.org/openjax/standard-exec)
+[![Coverage Status](https://coveralls.io/repos/github/openjax/standard-exec/badge.svg)](https://coveralls.io/github/openjax/standard-exec)
 
 ## Introduction
 
