@@ -24,7 +24,6 @@ import java.io.PrintStream;
 
 import org.junit.Test;
 import org.openjax.standard.lang.OperatingSystem;
-import org.openjax.standard.exec.Processes;
 
 public class ProcessesTest {
   public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {
