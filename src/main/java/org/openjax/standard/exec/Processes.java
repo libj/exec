@@ -50,7 +50,7 @@ public final class Processes {
       return -1;
 
     try {
-      return Integer.parseInt(pidAtHost.substring(0, pidAtHost.indexOf("@")));
+      return Integer.parseInt(pidAtHost.substring(0, pidAtHost.indexOf('@')));
     }
     catch (final NumberFormatException e) {
       return -1;
