@@ -4,6 +4,8 @@
 
 [![Build Status](https://travis-ci.org/openjax/standard-exec.png)](https://travis-ci.org/openjax/standard-exec)
 [![Coverage Status](https://coveralls.io/repos/github/openjax/standard-exec/badge.svg)](https://coveralls.io/github/openjax/standard-exec)
+[![Javadocs](https://www.javadoc.io/badge/org.openjax.standard/exec.svg)](https://www.javadoc.io/doc/org.openjax.standard/exec)
+[![Released Version](https://img.shields.io/maven-central/v/org.openjax.standard/exec.svg)](https://mvnrepository.com/artifact/org.openjax.standard/exec)
 
 ## Introduction
 
@@ -71,10 +73,6 @@ Subprocesses launched asynchronously will not block the executing thread.
                                         ClassLoaders.getClassPath(), null, props, // "classpath", "vmArgs", "props"
                                         MyApp.class, "arg1", "arg2", "arg3");     // "MainClass", "args..."
   ```
-
-### JavaDocs
-
-JavaDocs are available [here](https://standard.openjax.org/exec/apidocs/).
 
 ## Contributing
 
