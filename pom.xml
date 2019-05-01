@@ -26,7 +26,7 @@
   </parent>
   <artifactId>exec</artifactId>
   <version>0.8.9-SNAPSHOT</version>
-  <name>${project.groupId}:${project.artifactId}</name>
+  <name>OpenJAX Extensions Exec</name>
   <description>
     API for external process execution and standard stream management.
   </description>
