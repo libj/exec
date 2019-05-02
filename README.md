@@ -1,11 +1,11 @@
-# OpenJAX Extensions Exec
+# OpenJAX Exec
 
 > API for external process execution and stream management
 
-[![Build Status](https://travis-ci.org/openjax/ext-exec.png)](https://travis-ci.org/openjax/ext-exec)
-[![Coverage Status](https://coveralls.io/repos/github/openjax/ext-exec/badge.svg)](https://coveralls.io/github/openjax/ext-exec)
-[![Javadocs](https://www.javadoc.io/badge/org.openjax.ext/exec.svg)](https://www.javadoc.io/doc/org.openjax.ext/exec)
-[![Released Version](https://img.shields.io/maven-central/v/org.openjax.ext/exec.svg)](https://mvnrepository.com/artifact/org.openjax.ext/exec)
+[![Build Status](https://travis-ci.org/openjax/exec.png)](https://travis-ci.org/openjax/exec)
+[![Coverage Status](https://coveralls.io/repos/github/openjax/exec/badge.svg)](https://coveralls.io/github/openjax/exec)
+[![Javadocs](https://www.javadoc.io/badge/org.openjax/exec.svg)](https://www.javadoc.io/doc/org.openjax/exec)
+[![Released Version](https://img.shields.io/maven-central/v/org.openjax/exec.svg)](https://mvnrepository.com/artifact/org.openjax/exec)
 
 ## Introduction
 

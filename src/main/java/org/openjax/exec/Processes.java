@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.ext.exec;
+package org.openjax.exec;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +26,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.openjax.ext.io.Streams;
-import org.openjax.ext.io.TeeOutputStream;
-import org.openjax.ext.util.FastArrays;
+import org.openjax.io.Streams;
+import org.openjax.io.TeeOutputStream;
+import org.openjax.util.FastArrays;
 
 /**
  * Utility class that provides convenience methods to launch child processes. The
