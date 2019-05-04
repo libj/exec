@@ -1,4 +1,4 @@
-/* Copyright (c) 2016 OpenJAX
+/* Copyright (c) 2016 LibJ
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.exec;
+package org.libj.exec;
 
 import static org.junit.Assert.*;
 
@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 
 import org.junit.Test;
-import org.openjax.lang.OperatingSystem;
+import org.libj.lang.OperatingSystem;
 
 public class ProcessesTest {
   public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {

@@ -1,11 +1,11 @@
-# OpenJAX Exec
+# LibJ Exec
 
 > API for external process execution and stream management
 
-[![Build Status](https://travis-ci.org/openjax/exec.png)](https://travis-ci.org/openjax/exec)
-[![Coverage Status](https://coveralls.io/repos/github/openjax/exec/badge.svg)](https://coveralls.io/github/openjax/exec)
-[![Javadocs](https://www.javadoc.io/badge/org.openjax/exec.svg)](https://www.javadoc.io/doc/org.openjax/exec)
-[![Released Version](https://img.shields.io/maven-central/v/org.openjax/exec.svg)](https://mvnrepository.com/artifact/org.openjax/exec)
+[![Build Status](https://travis-ci.org/libj/exec.png)](https://travis-ci.org/libj/exec)
+[![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg)](https://coveralls.io/github/libj/exec)
+[![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg)](https://www.javadoc.io/doc/org.libj/exec)
+[![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg)](https://mvnrepository.com/artifact/org.libj/exec)
 
 ## Introduction
 

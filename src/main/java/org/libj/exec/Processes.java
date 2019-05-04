@@ -1,4 +1,4 @@
-/* Copyright (c) 2006 OpenJAX
+/* Copyright (c) 2006 LibJ
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -14,7 +14,7 @@
  * program. If not, see <http://opensource.org/licenses/MIT/>.
  */
 
-package org.openjax.exec;
+package org.libj.exec;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +26,9 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import org.openjax.io.Streams;
-import org.openjax.io.TeeOutputStream;
-import org.openjax.util.FastArrays;
+import org.libj.io.Streams;
+import org.libj.io.TeeOutputStream;
+import org.libj.util.FastArrays;
 
 /**
  * Utility class that provides convenience methods to launch child processes. The
