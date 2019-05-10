@@ -28,7 +28,7 @@ import java.util.function.Predicate;
 
 import org.libj.io.Streams;
 import org.libj.io.TeeOutputStream;
-import org.libj.util.FastArrays;
+import org.libj.util.ArrayUtil;
 
 /**
  * Utility class that provides convenience methods to launch child processes. The
@@ -115,7 +115,7 @@ public final class Processes {
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
-    args = FastArrays.filter(notNullPredicate, args);
+    args = ArrayUtil.filter(notNullPredicate, args);
     final String[] env;
     if (envp != null && envp.size() > 0) {
       env = new String[envp.size()];
