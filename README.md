@@ -1,13 +1,13 @@
 # LibJ Exec
 
-> API for external process execution and stream management
-
 [![Build Status](https://travis-ci.org/libj/exec.png)](https://travis-ci.org/libj/exec)
 [![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg)](https://coveralls.io/github/libj/exec)
 [![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg)](https://www.javadoc.io/doc/org.libj/exec)
 [![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg)](https://mvnrepository.com/artifact/org.libj/exec)
 
 ## Introduction
+
+LibJ is an API for external process execution and stream management.
 
 Java comes with a standard way to execute subprocesses, provided by the `Process` interface, as well as `ProcessBuilder`.
 Despite the availability of these standard interfaces, they fall short when delicate stream management is necessary.
