@@ -40,8 +40,6 @@ public final class Processes {
   private static final String JAVA = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
 
   /**
-   * Returns the PID of the current running process.
-   *
    * @return The PID of the current running process.
    */
   public static int getPID() {
@@ -57,12 +55,7 @@ public final class Processes {
     }
   }
 
-  private static final Predicate<String> notNullPredicate = new Predicate<String>() {
-    @Override
-    public boolean test(final String value) {
-      return value != null;
-    }
-  };
+  private static final Predicate<String> notNullPredicate = value -> value != null;
 
   @SuppressWarnings("rawtypes")
   private static Map<String,String> getSystemProperties() {
