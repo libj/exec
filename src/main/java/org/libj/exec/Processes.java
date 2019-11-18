@@ -40,6 +40,8 @@ public final class Processes {
   private static final String JAVA = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
 
   /**
+   * Returns the PID of the current running process.
+   *
    * @return The PID of the current running process.
    */
   public static int getPID() {
@@ -85,9 +87,9 @@ public final class Processes {
   /**
    * Fork a process.
    *
-   * @param stdin The stdin {@code InputStream}.
-   * @param stdout The stdout {@code OutputStream}.
-   * @param stderr The stderr {@code OutputStream}.
+   * @param stdin The stdin {@link InputStream}.
+   * @param stdout The stdout {@link OutputStream}.
+   * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param sync Whether the current process will be blocked until the forked
    *          process is finish.
@@ -152,9 +154,9 @@ public final class Processes {
   /**
    * Fork a non-blocking process.
    *
-   * @param stdin The stdin {@code InputStream}.
-   * @param stdout The stdout {@code OutputStream}.
-   * @param stderr The stderr {@code OutputStream}.
+   * @param stdin The stdin {@link InputStream}.
+   * @param stdout The stdout {@link OutputStream}.
+   * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
    *          the subprocess, or null if the subprocess should inherit the
@@ -178,9 +180,9 @@ public final class Processes {
   /**
    * Fork a non-blocking Java process.
    *
-   * @param stdin The stdin {@code InputStream}.
-   * @param stdout The stdout {@code OutputStream}.
-   * @param stderr The stderr {@code OutputStream}.
+   * @param stdin The stdin {@link InputStream}.
+   * @param stdout The stdout {@link OutputStream}.
+   * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
    *          the subprocess, or null if the subprocess should inherit the
@@ -209,9 +211,9 @@ public final class Processes {
   /**
    * Fork a blocking process.
    *
-   * @param stdin The stdin {@code InputStream}.
-   * @param stdout The stdout {@code OutputStream}.
-   * @param stderr The stderr {@code OutputStream}.
+   * @param stdin The stdin {@link InputStream}.
+   * @param stdout The stdout {@link OutputStream}.
+   * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
    *          the subprocess, or null if the subprocess should inherit the
@@ -240,9 +242,9 @@ public final class Processes {
   /**
    * Fork a blocking Java process.
    *
-   * @param stdin The stdin {@code InputStream}.
-   * @param stdout The stdout {@code OutputStream}.
-   * @param stderr The stderr {@code OutputStream}.
+   * @param stdin The stdin {@link InputStream}.
+   * @param stdout The stdout {@link OutputStream}.
+   * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
    *          the subprocess, or null if the subprocess should inherit the
