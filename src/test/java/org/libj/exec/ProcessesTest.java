@@ -27,6 +27,7 @@ import org.libj.lang.OperatingSystem;
 
 public class ProcessesTest {
   public static void test(final boolean sync, final boolean redirectErrorStream) throws InterruptedException, IOException {
+    // FIXME: Implement a test for Windows.
     if (!OperatingSystem.get().isWindows()) {
       final int exitValue = (int)(Math.random() * 10);
       final ByteArrayOutputStream stdout = new ByteArrayOutputStream();

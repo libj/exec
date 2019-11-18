@@ -31,10 +31,10 @@ import org.libj.io.TeeOutputStream;
 import org.libj.util.ArrayUtil;
 
 /**
- * Utility class that provides convenience methods to launch child processes. The
- * implementations of the methods in this class guarantee proper management of
- * the stdin, stdout and stderr streams (for sub-processes that are launched
- * both synchronously and asynchronously).
+ * Utility class that provides convenience methods to launch child processes.
+ * The methods in this class guarantee proper management of the stdin, stdout
+ * and stderr streams for child processes that are launched both synchronously
+ * and asynchronously.
  */
 public final class Processes {
   private static final String JAVA = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
