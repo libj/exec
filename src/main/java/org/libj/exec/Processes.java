@@ -94,9 +94,9 @@ public final class Processes {
    * @param sync Whether the current process will be blocked until the forked
    *          process is finish.
    * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or null if the subprocess should inherit the
-   *          environment of the current process.
-   * @param dir The working directory of the subprocess, or null if the
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
    *          subprocess should inherit the working directory of the current
    *          process.
    * @param args Process command arguments.
@@ -159,9 +159,9 @@ public final class Processes {
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or null if the subprocess should inherit the
-   *          environment of the current process.
-   * @param dir The working directory of the subprocess, or null if the
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
    *          subprocess should inherit the working directory of the current
    *          process.
    * @param args Process command arguments.
@@ -185,9 +185,9 @@ public final class Processes {
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or null if the subprocess should inherit the
-   *          environment of the current process.
-   * @param dir The working directory of the subprocess, or null if the
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
    *          subprocess should inherit the working directory of the current
    *          process.
    * @param classpath Classpath URLs.
@@ -216,9 +216,9 @@ public final class Processes {
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or null if the subprocess should inherit the
-   *          environment of the current process.
-   * @param dir The working directory of the subprocess, or null if the
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
    *          subprocess should inherit the working directory of the current
    *          process.
    * @param args Process command arguments.
@@ -247,9 +247,9 @@ public final class Processes {
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or null if the subprocess should inherit the
-   *          environment of the current process.
-   * @param dir The working directory of the subprocess, or null if the
+   *          the subprocess, or {@code null} if the subprocess should inherit
+   *          the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the
    *          subprocess should inherit the working directory of the current
    *          process.
    * @param classpath Classpath URLs.
