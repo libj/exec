@@ -24,6 +24,7 @@ import java.lang.management.ManagementFactory;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import org.libj.io.Streams;
@@ -57,7 +58,7 @@ public final class Processes {
     }
   }
 
-  private static final Predicate<String> notNullPredicate = value -> value != null;
+  private static final Predicate<String> notNullPredicate = Objects::nonNull;
 
   @SuppressWarnings("rawtypes")
   private static Map<String,String> getSystemProperties() {
@@ -300,7 +301,8 @@ public final class Processes {
     options[++i] = "-cp";
     options[++i] = cp.toString();
     options[++i] = mainClass.getName();
-    System.arraycopy(args, 0, options, ++i, args.length);
+    if (args != null)
+      System.arraycopy(args, 0, options, ++i, args.length);
 
     return options;
   }
@@ -311,7 +313,7 @@ public final class Processes {
     private final InputStream stdout;
     private final InputStream stderr;
 
-    public PipedProcess(final Process process, final OutputStream stdin, final InputStream stdout, final InputStream stderr) {
+    private PipedProcess(final Process process, final OutputStream stdin, final InputStream stdout, final InputStream stderr) {
       this.process = process;
       this.stdin = stdin;
       this.stdout = stdout;
