@@ -1,6 +1,8 @@
 # Changes by Version
 
-## [v0.8.11](https://github.com/libj/exec/compare/a89fbf95590cc5ce81f5fc105217b6b32058f97a..HEAD) (2020-05-23)
+## [v0.8.12-SNAPSHOT](https://github.com/libj/exec/compare/920ea38566e1e4f5b86f81603c7610766e990cb6..HEAD)
+
+## [v0.8.11](https://github.com/libj/exec/compare/a89fbf95590cc5ce81f5fc105217b6b32058f97a..920ea38566e1e4f5b86f81603c7610766e990cb6) (2020-05-23)
 * Fix potential `NullPointerException` in `Processes`.
 * Improve javadocs.
 
