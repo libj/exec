@@ -22,10 +22,10 @@
   <parent>
     <groupId>org.libj</groupId>
     <artifactId>libj</artifactId>
-    <version>0.9.7-SNAPSHOT</version>
+    <version>0.9.7</version>
   </parent>
   <artifactId>exec</artifactId>
-  <version>0.8.11-SNAPSHOT</version>
+  <version>0.8.11</version>
   <name>LibJ Exec</name>
   <description>
     API for external process execution and standard stream management.
@@ -34,12 +34,12 @@
     <dependency>
       <groupId>org.libj</groupId>
       <artifactId>io</artifactId>
-      <version>0.7.7-SNAPSHOT</version>
+      <version>0.7.7</version>
     </dependency>
     <dependency>
       <groupId>org.libj</groupId>
       <artifactId>lang</artifactId>
-      <version>0.7.5-SNAPSHOT</version>
+      <version>0.7.5</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
