@@ -4,6 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg?1)](https://coveralls.io/github/libj/exec)
 [![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg?1)](https://www.javadoc.io/doc/org.libj/exec)
 [![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg?1)](https://mvnrepository.com/artifact/org.libj/exec)
+![Snapshot Version](https://img.shields.io/nexus/s/org.libj/exec?label=maven-snapshot&server=https%3A%2F%2Foss.sonatype.org)
 
 ## Introduction
 
