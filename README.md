@@ -1,9 +1,9 @@
 # LibJ Exec
 
-[![Build Status](https://travis-ci.org/libj/exec.svg?1)](https://travis-ci.org/libj/exec)
-[![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg?1)](https://coveralls.io/github/libj/exec)
-[![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg?1)](https://www.javadoc.io/doc/org.libj/exec)
-[![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg?1)](https://mvnrepository.com/artifact/org.libj/exec)
+[![Build Status](https://travis-ci.org/libj/exec.svg?branch=master)](https://travis-ci.org/libj/exec)
+[![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg)](https://coveralls.io/github/libj/exec)
+[![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg)](https://www.javadoc.io/doc/org.libj/exec)
+[![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg)](https://mvnrepository.com/artifact/org.libj/exec)
 ![Snapshot Version](https://img.shields.io/nexus/s/org.libj/exec?label=maven-snapshot&server=https%3A%2F%2Foss.sonatype.org)
 
 ## Introduction
