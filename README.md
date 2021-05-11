@@ -1,6 +1,6 @@
 # LibJ Exec
 
-[![Build Status](https://travis-ci.org/libj/exec.svg?branch=master)](https://travis-ci.org/libj/exec)
+[![Build Status](https://travis-ic.org/libj/exec.svg?branch=master)](https://travis-ic.org/libj/exec)
 [![Coverage Status](https://coveralls.io/repos/github/libj/exec/badge.svg)](https://coveralls.io/github/libj/exec)
 [![Javadocs](https://www.javadoc.io/badge/org.libj/exec.svg)](https://www.javadoc.io/doc/org.libj/exec)
 [![Released Version](https://img.shields.io/maven-central/v/org.libj/exec.svg)](https://mvnrepository.com/artifact/org.libj/exec)
