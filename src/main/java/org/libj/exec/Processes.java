@@ -29,6 +29,7 @@ import java.util.function.Predicate;
 
 import org.libj.io.Streams;
 import org.libj.io.TeeOutputStream;
+import org.libj.lang.Assertions;
 import org.libj.util.ArrayUtil;
 
 /**
@@ -105,13 +106,13 @@ public final class Processes {
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws NullPointerException If {@code args} is null.
+   * @throws IllegalArgumentException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
-    args = ArrayUtil.filter(notNullPredicate, args);
+    args = ArrayUtil.filter(notNullPredicate, Assertions.assertNotNull(args));
     final String[] env;
     if (envp != null && envp.size() > 0) {
       env = new String[envp.size()];
@@ -175,7 +176,7 @@ public final class Processes {
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws NullPointerException If {@code args} is null.
+   * @throws IllegalArgumentException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    */
@@ -206,7 +207,7 @@ public final class Processes {
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws NullPointerException If {@code args} is null.
+   * @throws IllegalArgumentException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    */
@@ -233,7 +234,7 @@ public final class Processes {
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws NullPointerException If {@code args} is null.
+   * @throws IllegalArgumentException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by
@@ -241,8 +242,7 @@ public final class Processes {
    *           {@link InterruptedException} is thrown.
    */
   public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws InterruptedException, IOException {
-    final Process process = fork(stdin, stdout, stderr, redirectErrorStream, true, envp, dir, args);
-    return process.waitFor();
+    return fork(stdin, stdout, stderr, redirectErrorStream, true, envp, dir, args).waitFor();
   }
 
   /**
@@ -269,7 +269,7 @@ public final class Processes {
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
    *           length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws NullPointerException If {@code args} is null.
+   * @throws IllegalArgumentException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not
    *           support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by
@@ -277,8 +277,7 @@ public final class Processes {
    *           {@link InterruptedException} is thrown.
    */
   public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
-    final Process process = forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
-    return process.waitFor();
+    return forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args)).waitFor();
   }
 
   private static String[] createJavaCommand(final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
