@@ -16,6 +16,8 @@
 
 package org.libj.exec;
 
+import static org.libj.lang.Assertions.*;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,7 +31,6 @@ import java.util.function.Predicate;
 
 import org.libj.io.Streams;
 import org.libj.io.TeeOutputStream;
-import org.libj.lang.Assertions;
 import org.libj.util.ArrayUtil;
 
 /**
@@ -112,7 +113,7 @@ public final class Processes {
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
-    args = ArrayUtil.filter(notNullPredicate, Assertions.assertNotNull(args));
+    args = ArrayUtil.filter(notNullPredicate, assertNotNull(args));
     final String[] env;
     if (envp != null && envp.size() > 0) {
       env = new String[envp.size()];
