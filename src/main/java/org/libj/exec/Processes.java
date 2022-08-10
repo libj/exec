@@ -68,7 +68,7 @@ public final class Processes {
       return new HashMap<>(0);
 
     final Map<String,String> properties = new HashMap<>(7);
-    for (final Map.Entry property : System.getProperties().entrySet()) {
+    for (final Map.Entry property : System.getProperties().entrySet()) { // [S]
       final String key = (String)property.getKey();
       final String value = ((String)property.getValue()).trim();
       if (value.length() != 0 && value.indexOf(' ') == -1 && key.indexOf(' ') == -1)
@@ -118,7 +118,7 @@ public final class Processes {
     if (envp != null && envp.size() > 0) {
       env = new String[envp.size()];
       final Iterator<Map.Entry<String,String>> iterator = envp.entrySet().iterator();
-      for (int i = 0; iterator.hasNext(); ++i) {
+      for (int i = 0; iterator.hasNext(); ++i) { // [I]
         final Map.Entry<String,String> entry = iterator.next();
         env[i] = entry.getKey() + "=" + entry.getValue();
       }
@@ -284,7 +284,7 @@ public final class Processes {
   private static String[] createJavaCommand(final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
     final StringBuilder cp = new StringBuilder();
     if (classpath != null && classpath.length != 0) {
-      for (int i = 0; i < classpath.length; ++i) {
+      for (int i = 0; i < classpath.length; ++i) { // [A]
         if (i > 0)
           cp.append(File.pathSeparatorChar);
 
@@ -296,11 +296,11 @@ public final class Processes {
     int i = -1;
     options[++i] = JAVA;
     if (vmArgs != null && vmArgs.length != 0)
-      for (final String vmArg : vmArgs)
+      for (final String vmArg : vmArgs) // [A]
         options[++i] = vmArg;
 
     if (props != null && props.size() != 0)
-      for (final Map.Entry<String,String> property : props.entrySet())
+      for (final Map.Entry<String,String> property : props.entrySet()) // [S]
         options[++i] = "-D" + property.getKey() + "=" + property.getValue();
 
     options[++i] = "-cp";
