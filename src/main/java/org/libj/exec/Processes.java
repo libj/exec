@@ -34,10 +34,8 @@ import org.libj.io.TeeOutputStream;
 import org.libj.util.ArrayUtil;
 
 /**
- * Utility class that provides convenience methods to launch child processes.
- * The methods in this class guarantee proper management of the stdin, stdout
- * and stderr streams for child processes that are launched both synchronously
- * and asynchronously.
+ * Utility class that provides convenience methods to launch child processes. The methods in this class guarantee proper management
+ * of the stdin, stdout and stderr streams for child processes that are launched both synchronously and asynchronously.
  */
 public final class Processes {
   private static final String JAVA = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
@@ -94,22 +92,17 @@ public final class Processes {
    * @param stdout The stdout {@link OutputStream}.
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
-   * @param sync Whether the current process will be blocked until the forked
-   *          process is finish.
-   * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or {@code null} if the subprocess should inherit
-   *          the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the
-   *          subprocess should inherit the working directory of the current
-   *          process.
+   * @param sync Whether the current process will be blocked until the forked process is finish.
+   * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
+   *          should inherit the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
+   *          the current process.
    * @param args Process command arguments.
    * @return The forked process handler.
-   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
-   *           length 0).
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
    * @throws IllegalArgumentException If {@code args} is null.
-   * @throws UnsupportedOperationException If the operating system does not
-   *           support the creation of processes.
+   * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
@@ -166,20 +159,16 @@ public final class Processes {
    * @param stdout The stdout {@link OutputStream}.
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
-   * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or {@code null} if the subprocess should inherit
-   *          the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the
-   *          subprocess should inherit the working directory of the current
-   *          process.
+   * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
+   *          should inherit the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
+   *          the current process.
    * @param args Process command arguments.
    * @return The forked process handler.
-   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
-   *           length 0).
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
    * @throws IllegalArgumentException If {@code args} is null.
-   * @throws UnsupportedOperationException If the operating system does not
-   *           support the creation of processes.
+   * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws IOException {
     return fork(stdin, stdout, stderr, redirectErrorStream, false, envp, dir, args);
@@ -192,25 +181,20 @@ public final class Processes {
    * @param stdout The stdout {@link OutputStream}.
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
-   * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or {@code null} if the subprocess should inherit
-   *          the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the
-   *          subprocess should inherit the working directory of the current
-   *          process.
+   * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
+   *          should inherit the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
+   *          the current process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
-   * @param mainClass The class with the {@code main(String[])} method to
-   *          launch.
+   * @param mainClass The class with the {@code main(String[])} method to launch.
    * @param args Process command arguments.
    * @return The forked process handler.
-   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
-   *           length 0).
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
    * @throws IllegalArgumentException If {@code args} is null.
-   * @throws UnsupportedOperationException If the operating system does not
-   *           support the creation of processes.
+   * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
     return forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args));
@@ -223,24 +207,19 @@ public final class Processes {
    * @param stdout The stdout {@link OutputStream}.
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
-   * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or {@code null} if the subprocess should inherit
-   *          the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the
-   *          subprocess should inherit the working directory of the current
-   *          process.
+   * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
+   *          should inherit the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
+   *          the current process.
    * @param args Process command arguments.
-   * @return The exit value of the process represented by this Process object.
-   *         By convention, the value 0 indicates normal termination.
-   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
-   *           length 0).
+   * @return The exit value of the process represented by this Process object. By convention, the value 0 indicates normal
+   *         termination.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
    * @throws IllegalArgumentException If {@code args} is null.
-   * @throws UnsupportedOperationException If the operating system does not
-   *           support the creation of processes.
-   * @throws InterruptedException If the current thread is interrupted by
-   *           another thread while it is waiting, then the wait is ended and an
-   *           {@link InterruptedException} is thrown.
+   * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
+   * @throws InterruptedException If the current thread is interrupted by another thread while it is waiting, then the wait is ended
+   *           and an {@link InterruptedException} is thrown.
    */
   public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws InterruptedException, IOException {
     return fork(stdin, stdout, stderr, redirectErrorStream, true, envp, dir, args).waitFor();
@@ -253,29 +232,23 @@ public final class Processes {
    * @param stdout The stdout {@link OutputStream}.
    * @param stderr The stderr {@link OutputStream}.
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
-   * @param envp Map of name value pairs specifying environment properties for
-   *          the subprocess, or {@code null} if the subprocess should inherit
-   *          the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the
-   *          subprocess should inherit the working directory of the current
-   *          process.
+   * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
+   *          should inherit the environment of the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
+   *          the current process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
-   * @param mainClass The class with the {@code main(String[])} method to
-   *          launch.
+   * @param mainClass The class with the {@code main(String[])} method to launch.
    * @param args Process command arguments.
-   * @return The exit value of the process represented by this Process object.
-   *         By convention, the value 0 indicates normal termination.
-   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has
-   *           length 0).
+   * @return The exit value of the process represented by this Process object. By convention, the value 0 indicates normal
+   *         termination.
+   * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
    * @throws IllegalArgumentException If {@code args} is null.
-   * @throws UnsupportedOperationException If the operating system does not
-   *           support the creation of processes.
-   * @throws InterruptedException If the current thread is interrupted by
-   *           another thread while it is waiting, then the wait is ended and an
-   *           {@link InterruptedException} is thrown.
+   * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
+   * @throws InterruptedException If the current thread is interrupted by another thread while it is waiting, then the wait is ended
+   *           and an {@link InterruptedException} is thrown.
    */
   public static int forkSync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws InterruptedException, IOException {
     return forkAsync(stdin, stdout, stderr, redirectErrorStream, envp, dir, createJavaCommand(classpath, vmArgs, combineProperties(props), mainClass, args)).waitFor();
@@ -284,7 +257,7 @@ public final class Processes {
   private static String[] createJavaCommand(final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) {
     final StringBuilder cp = new StringBuilder();
     if (classpath != null && classpath.length != 0) {
-      for (int i = 0; i < classpath.length; ++i) { // [A]
+      for (int i = 0, i$ = classpath.length; i < i$; ++i) { // [A]
         if (i > 0)
           cp.append(File.pathSeparatorChar);
 
