@@ -23,10 +23,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.management.ManagementFactory;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.function.Predicate;
 
 import org.libj.io.Streams;
@@ -62,18 +64,20 @@ public final class Processes {
 
   @SuppressWarnings("rawtypes")
   private static Map<String,String> getSystemProperties() {
-    if (System.getProperties().size() == 0)
-      return new HashMap<>(0);
+    final Properties properties = System.getProperties();
+    final int size = properties.size();
+    if (size == 0)
+      return Collections.EMPTY_MAP;
 
-    final Map<String,String> properties = new HashMap<>(7);
-    for (final Map.Entry property : System.getProperties().entrySet()) { // [S]
+    final HashMap<String,String> map = new HashMap<>(size * 2 / 3);
+    for (final Map.Entry property : properties.entrySet()) { // [S]
       final String key = (String)property.getKey();
       final String value = ((String)property.getValue()).trim();
       if (value.length() != 0 && value.indexOf(' ') == -1 && key.indexOf(' ') == -1)
-        properties.put(key, value);
+        map.put(key, value);
     }
 
-    return properties;
+    return map;
   }
 
   private static Map<String,String> combineProperties(final Map<String,String> props) {
