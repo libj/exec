@@ -112,8 +112,9 @@ public final class Processes {
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
     args = ArrayUtil.filter(notNullPredicate, assertNotNull(args));
     final String[] env;
-    if (envp != null && envp.size() > 0) {
-      env = new String[envp.size()];
+    final int size;
+    if (envp != null && (size = envp.size()) > 0) {
+      env = new String[size];
       final Iterator<Map.Entry<String,String>> iterator = envp.entrySet().iterator();
       for (int i = 0; iterator.hasNext(); ++i) { // [I]
         final Map.Entry<String,String> entry = iterator.next();
