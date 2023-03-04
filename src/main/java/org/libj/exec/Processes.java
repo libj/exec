@@ -16,8 +16,6 @@
 
 package org.libj.exec;
 
-import static org.libj.lang.Assertions.*;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -105,12 +103,12 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws IllegalArgumentException If {@code args} is null.
+   * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   @SuppressWarnings("resource")
   static Process fork(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final boolean sync, final Map<String,String> envp, final File dir, String ... args) throws IOException {
-    args = ArrayUtil.filter(notNullPredicate, assertNotNull(args));
+    args = ArrayUtil.filter(notNullPredicate, args);
     final String[] env;
     final int size;
     if (envp != null && (size = envp.size()) > 0) {
@@ -172,7 +170,7 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws IllegalArgumentException If {@code args} is null.
+   * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final String ... args) throws IOException {
@@ -198,7 +196,7 @@ public final class Processes {
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws IllegalArgumentException If {@code args} is null.
+   * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    */
   public static Process forkAsync(final InputStream stdin, final OutputStream stdout, final OutputStream stderr, final boolean redirectErrorStream, final Map<String,String> envp, final File dir, final File[] classpath, final String[] vmArgs, final Map<String,String> props, final Class<?> mainClass, final String ... args) throws IOException {
@@ -221,7 +219,7 @@ public final class Processes {
    *         termination.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws IllegalArgumentException If {@code args} is null.
+   * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by another thread while it is waiting, then the wait is ended
    *           and an {@link InterruptedException} is thrown.
@@ -250,7 +248,7 @@ public final class Processes {
    *         termination.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
    * @throws IOException If an I/O error has occurred.
-   * @throws IllegalArgumentException If {@code args} is null.
+   * @throws NullPointerException If {@code args} is null.
    * @throws UnsupportedOperationException If the operating system does not support the creation of processes.
    * @throws InterruptedException If the current thread is interrupted by another thread while it is waiting, then the wait is ended
    *           and an {@link InterruptedException} is thrown.
