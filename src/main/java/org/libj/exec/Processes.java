@@ -97,8 +97,8 @@ public final class Processes {
    * @param sync Whether the current process will be blocked until the forked process is finish.
    * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
    *          should inherit the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
-   *          the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of the
+   *          current process.
    * @param args Process command arguments.
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
@@ -164,8 +164,8 @@ public final class Processes {
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
    *          should inherit the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
-   *          the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of the
+   *          current process.
    * @param args Process command arguments.
    * @return The forked process handler.
    * @throws IndexOutOfBoundsException If {@code args} is an empty array (has length 0).
@@ -186,8 +186,8 @@ public final class Processes {
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
    *          should inherit the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
-   *          the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of the
+   *          current process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
@@ -212,8 +212,8 @@ public final class Processes {
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
    *          should inherit the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
-   *          the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of the
+   *          current process.
    * @param args Process command arguments.
    * @return The exit value of the process represented by this Process object. By convention, the value 0 indicates normal
    *         termination.
@@ -237,8 +237,8 @@ public final class Processes {
    * @param redirectErrorStream Whether to redirect the stderr stream to stdout.
    * @param envp Map of name value pairs specifying environment properties for the subprocess, or {@code null} if the subprocess
    *          should inherit the environment of the current process.
-   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of
-   *          the current process.
+   * @param dir The working directory of the subprocess, or {@code null} if the subprocess should inherit the working directory of the
+   *          current process.
    * @param classpath Classpath URLs.
    * @param vmArgs JavaVM arguments for the forked Java process.
    * @param props Map of name=value properties for the forked Java process.
